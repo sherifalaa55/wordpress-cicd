@@ -20,6 +20,17 @@ jobs:
       run: |
         cp wp-config-sample.php wp-config.php
         sed -i 's/database_name_here/${{ secrets.DB_NAME }}/g' wp-config.php
+        sed -i 's/username_here/${{ secrets.DB_USER }}/g' wp-config.php
+        sed -i 's/password_here/${{ secrets.DB_PASSWORD }}/g' wp-config.php
+        sed -i 's/localhost/${{ secrets.DB_HOST }}/g' wp-config.php
+        sed -i "s/'AUTH_KEY',         'put your unique phrase here'/'AUTH_KEY',         '${{ secrets.CONFIG_AUTH_KEY }}'/g" wp-config.php
+        sed -i "s/'SECURE_AUTH_KEY',         'put your unique phrase here'/'SECURE_AUTH_KEY',         '${{ secrets.CONFIG_SECURE_AUTH_KEY }}'/g" wp-config.php
+        sed -i "s/'LOGGED_IN_KEY',         'put your unique phrase here'/'LOGGED_IN_KEY',         '${{ secrets.CONFIG_LOGGED_IN_KEY }}'/g" wp-config.php
+        sed -i "s/'NONCE_KEY',         'put your unique phrase here'/'NONCE_KEY',         '${{ secrets.CONFIG_NONCE_KEY }}'/g" wp-config.php
+        sed -i "s/'AUTH_SALT',         'put your unique phrase here'/'AUTH_SALT',         '${{ secrets.CONFIG_AUTH_SALT }}'/g" wp-config.php
+        sed -i "s/'SECURE_AUTH_SALT',         'put your unique phrase here'/'SECURE_AUTH_SALT',         '${{ secrets.CONFIG_SECURE_AUTH_SALT }}'/g" wp-config.php
+        sed -i "s/'LOGGED_IN_SALT',         'put your unique phrase here'/'LOGGED_IN_SALT',         '${{ secrets.CONFIG_LOGGED_IN_SALT }}'/g" wp-config.php
+        sed -i "s/'NONCE_SALT',         'put your unique phrase here'/'NONCE_SALT',         '${{ secrets.CONFIG_NONCE_SALT }}'/g" wp-config.php
       shell: bash
 
     - name: rsync deployments
