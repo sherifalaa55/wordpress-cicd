@@ -1,6 +1,10 @@
 name: Deploy
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   build:
@@ -15,6 +19,7 @@ jobs:
     - name: Create WP Config
       run: |
         cp wp-config-sample.php wp-config.php
+        sed -i 's/database_name_here/${{ secrets.DB_NAME }}/g' wp-config.php
       shell: bash
 
     - name: rsync deployments
@@ -23,7 +28,7 @@ jobs:
         switches: -avzr --delete
         path: ./
         remote_path: /var/www/html/
-        remote_host: 3.135.237.17
-        remote_user: ubuntu
+        remote_host: ${{ secrets.REMOTE_HOST }}
+        remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_KEY }}
 
