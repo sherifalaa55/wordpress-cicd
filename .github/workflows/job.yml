@@ -1,0 +1,29 @@
+name: Deploy
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    # Checkout Code
+    - name: Checkout Source Code
+      uses: actions/checkout@v3
+
+    # Create wp-config.php file 
+    - name: Create WP Config
+      run: |
+        cp wp-config-sample.php wp-config.php
+      shell: bash
+
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@6.0.0
+      with:
+        switches: -avzr --delete
+        path: ./
+        remote_path: /var/www/html/
+        remote_host: 3.135.237.17
+        remote_user: ubuntu
+        remote_key: ${{ secrets.SSH_KEY }}
+
