@@ -36,7 +36,7 @@ jobs:
     # build assets for specific theme
     - name: Build Assets
       run: |
-        npm install --prefix wp-content/themes/twentytwentyone
+        npm install --prefix wp-content/themes/twentytwentyone --legacy-peer-deps
         npm run build --prefix wp-content/themes/twentytwentyone
 
     - name: rsync deployments
