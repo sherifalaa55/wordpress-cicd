@@ -33,6 +33,13 @@ jobs:
         sed -i "s/'NONCE_SALT',       'put your unique phrase here'/'NONCE_SALT',       '${{ secrets.CONFIG_NONCE_SALT }}'/g" wp-config.php
       shell: bash
 
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-${{ hashFiles('wp-content/themes/twentytwentyone/package-lock.json') }}
+        restore-keys: npm-
+
     # build assets for specific theme
     - name: Build Assets
       run: |
