@@ -2,9 +2,9 @@ name: Deploy
 
 on: 
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -33,6 +33,12 @@ jobs:
         sed -i "s/'NONCE_SALT',       'put your unique phrase here'/'NONCE_SALT',       '${{ secrets.CONFIG_NONCE_SALT }}'/g" wp-config.php
       shell: bash
 
+    # build assets for specific theme
+    - name: Build Assets
+      run: |
+        npm install --prefix wp-content/themes/twentytwentyone
+        npm run build --prefix wp-content/themes/twentytwentyone
+
     - name: rsync deployments
       uses: burnett01/rsync-deployments@6.0.0
       with:
@@ -43,3 +49,4 @@ jobs:
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_key: ${{ secrets.SSH_KEY }}
 
+    

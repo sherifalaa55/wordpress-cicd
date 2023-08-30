@@ -3,6 +3,7 @@ wp-config.php
 
 # Uploads
 /wp-content/uploads/
+/wp-content/themes/**/node_modules
 
 # Log files
 *.log
