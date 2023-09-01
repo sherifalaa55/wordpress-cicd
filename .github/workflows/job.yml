@@ -54,6 +54,7 @@ jobs:
         remote_path: /var/www/html/
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_user: ${{ secrets.REMOTE_USER }}
+        remote_port: ${{ secrets.REMOTE_PORT }}
         remote_key: ${{ secrets.SSH_KEY }}
 
     
