@@ -47,7 +47,7 @@ jobs:
         npm run build --prefix wp-content/themes/twentytwentyone
 
     - name: rsync deployments
-      uses: burnett01/rsync-deployments@6.0.0
+      uses: kroominator/rsync-deployments-simply-com@5.2.2
       with:
         switches: -avzr --delete
         path: ./
@@ -55,6 +55,7 @@ jobs:
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_port: ${{ secrets.REMOTE_PORT }}
-        remote_key: ${{ secrets.SSH_KEY }}
+        # remote_key: ${{ secrets.SSH_KEY }}
+        remote_password: ${{ secrets.SSH_PASSWORD }}
 
     
